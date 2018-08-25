@@ -1,0 +1,11 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+#enterNick {
+  text-align: center;
+}
+.alert-danger {
+  margin-top: 10px;
+  text-align: center;
+}

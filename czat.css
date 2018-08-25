@@ -1,0 +1,21 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+form{
+  float:right;
+}
+
+#Message {
+  width: calc(100% - 165px);
+  float: left;
+  margin-right: 5px;
+}
+#butts {
+  margin-top: 5px;
+}
+#data1 {
+  height: 83%;
+  overflow: auto;
+  width: 100%;
+}
