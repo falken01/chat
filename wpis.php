@@ -79,9 +79,9 @@
             }
         //    $resUser = mysqli_query($conn, "SELECT * FROM `metadane_rozmowy` WHERE idPierwszejOsoby = '$id' ");
             $row = $res1 -> fetch_assoc();
-            $_GET['idRozmowy'] = $row['idRozmowy'];
-            $_GET['id'] = $id;
-            header("Location: ./czat.php/?=".$_GET['id']);
+            $_SESSION['idRozmowy'] = $row['idRozmowy'];
+            $_SESSION['id'] = $id;
+            header("Location: ./czat.php");
           }
         } else if ($id % 2 == 0) {
             $resultOfLastRowInRozmowyTbl = mysqli_query($conn,"SELECT `idRozmowy` FROM `metadane_rozmowy` ORDER BY `idRozmowy` DESC LIMIT 1");
@@ -91,9 +91,9 @@
             if($res){
               $resUser = mysqli_query($conn, "SELECT * FROM `metadane_rozmowy` WHERE idDrugiejOsoby = '$id' ");
               $row = $resUser -> fetch_assoc();
-              $_GET['idRozmowy'] = $row['idRozmowy'];
-              $_GET['id'] = $id;
-              header("Location: ./czat.php/?id=".$_GET['id']);
+              $_SESSION['idRozmowy'] = $row['idRozmowy'];
+              $_SESSION['id'] = $id;
+              header("Location: ./czat.php");
           }
         }
       }

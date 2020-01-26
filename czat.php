@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+ ?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,6 +15,7 @@
   <body>
     <script>
       $('document').ready(function(){
+        var c = 0;
         $('#sendMess').click(function(){
           var message = $("#message").val();
           if(message == "")
@@ -25,17 +28,59 @@
                 method:"POST",
                 data: {message:message},
                 success: function (res) {
-                  console.log(res);
+                  c--;
+                  console.log(c);
                   $('#message').val("");
                 }
             });
           }
         });
+
         $("#message").keydown(function(){
-          console.log("elo")
-          $("i").html("pisze...");
+          if(c == 0) {
+          $.ajax ({
+            url:"pisze.php",
+            method:"POST",
+            success: function (res) {
+                c++;
+              }
+            });
+          } else {
+            console.log("EEe");
+          }
+          });
+
+        window.addEventListener("beforeunload", function (e) {
+              $.ajax ({
+                url:"disconnect.php",
+                method:"POST",
+                success: function (res) {
+
+                }
+            });
+          });
+          $('input[type=text]').on('keydown', function(key) {
+            if (key.which == 13) {
+              var message = $("#message").val();
+              if(message == "")
+              {
+                alert("Napisz coś");
+                return false;
+              } else {
+                  $.ajax ({
+                    url:"sendMess.php",
+                    method:"POST",
+                    data: {message:message},
+                    success: function (res) {
+                      c--;
+                      console.log(c);
+                      $('#message').val("");
+                    }
+                });
+              }
+            }
+          });
         });
-      });
     </script>
     <div class="container">
         <div class="card">

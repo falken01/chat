@@ -1,9 +1,9 @@
 <?php
-//session_start();
+session_start();
 require_once('connect.php');
-if(isset($_GET['idRozmowy']))
-$idRozmowy = $_GET['idRozmowy'];
-$idOsoby = $_GET['id'];
+if(isset($_SESSION['idRozmowy']))
+$idRozmowy = $_SESSION['idRozmowy'];
+$idOsoby = $_SESSION['id'];
 $conn = mysqli_connect($host, $db_user, $db_pass, $db_name);
 $query = mysqli_query($conn, "DELETE FROM `wiadomosci` WHERE idOsoby='$idOsoby'");
 $res =  mysqli_query($conn, "UPDATE `metadane_rozmowy` SET `IloscOsobWRozmowie` = 0  WHERE `idRozmowy` = '$idRozmowy'");
@@ -15,23 +15,23 @@ if($query)
     $query = mysqli_query($conn, "DELETE FROM `metadane_rozmowy` WHERE idRozmowy='$idRozmowy'");
     if($query)
     {
-    //  session_unset();
+      session_unset();
       header("Location:./index.php");
     }
     else {
     echo "err code: 3";
-  //  session_unset();
+    session_unset();
     header("Location:./index.php");
   }
   }else {
   echo "err code: 2";
-//  session_unset();
+  session_unset();
   header("Location:./index.php");
 }
 } else {
 echo "err code: 1";
 echo "err code: 2";
-//session_unset();
+session_unset();
 header("Location:./index.php");
 }
 }

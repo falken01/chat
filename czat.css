@@ -15,7 +15,11 @@ form{
   margin-top: 5px;
 }
 #data1 {
-  height: 83%;
+  height: 83vh;
   overflow: auto;
   width: 100%;
+}
+i {
+  color:grey;
+  padding-top: 10px;
 }

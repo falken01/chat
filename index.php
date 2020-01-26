@@ -1,7 +1,7 @@
 <?php
     require_once('connect.php');
     $conn = mysqli_connect($host, $db_user, $db_pass, $db_name);
-  //  session_id("sesjaNr".uniqid());
+    session_id("sesjaNr".uniqid());
     session_start();
  ?>
 

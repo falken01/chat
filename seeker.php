@@ -1,13 +1,18 @@
 <?php
 
   session_start();
-
+  if(isset($_SESSION['idRozmowy']))
+  {
   require_once('connect.php');
   $conn = mysqli_connect($host, $db_user, $db_pass, $db_name);
-  $idRozmowy = $_GET['idRozmowy'];
+  $idRozmowy = $_SESSION['idRozmowy'];
+  $idOsoby = $_SESSION['id'];
   $resUser = mysqli_query($conn, "SELECT * FROM `metadane_rozmowy` WHERE idRozmowy = '$idRozmowy'");
   $row = $resUser -> fetch_assoc();
   $idDrugiejOsoby = $row['idDrugiejOsoby'];
+  $idPierwszejOsoby = $row['idPierwszejOsoby'];
+  $stPersonTyping = $row['ifFirstPersonIsTyping'];
+  $ndPersondTyping = $row['ifSecondPersonIsTyping'];
   $amountOfPplinConv  = $row['IloscOsobWRozmowie'];
   if($idDrugiejOsoby != 0 )
   {
@@ -21,6 +26,23 @@
       {
         echo "<b>".$nick.": </b>".$mess."<br />";
       }
+      if($idDrugiejOsoby == $idOsoby){
+        if($stPersonTyping == 1)
+        {
+          echo "<i> Rozmówca pisze </i>";
+
+        } else {
+          echo "";
+        }
+      } else if ($idPierwszejOsoby == $idOsoby ) {
+        if($ndPersondTyping == 1)
+        {
+          echo "<i> Rozmówca pisze </i>";
+
+        } else {
+          echo "";
+        }
+      }
     }
   } else {
     //zwróć nic
@@ -30,9 +52,12 @@
 
     } else {
     echo "Oczekiwanie na wolnego rozmówcę";
+
     }
 
   //  echo json_encode($i);
   }
-
+} else {
+  echo "<p class='lead'>Rozmówca się rozłączył</p><script>$('#sendMess, #message').attr('disabled');</script>";
+}
  ?>
